@@ -168,10 +168,3 @@ purpose of calculating daily work periods. It defaults to the value of
 Contributions are welcome. Please open an issue or pull request on the
 project's repository.
 
-** License
-:PROPERTIES:
-:CUSTOM_ID: h:40b18bb2-4dc1-4202-bd0b-6fab535b2a0f
-:ID:       E60A8D6C-56F0-477B-8802-7F14B01C6C36
-:END:
-
-This package is distributed under the MIT License.
