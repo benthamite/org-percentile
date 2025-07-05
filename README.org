@@ -1,7 +1,7 @@
 #+title: org-percentile: Live percentile feedback from Org clocks
 #+author: Pablo Stafforini
 #+language: en
-#+options: ':t toc:nil author:t email:t num:t
+#+options: ':t toc:nil author:t email:t
 #+startup: content
 
 This manual describes the Emacs package =org-percentile=.
