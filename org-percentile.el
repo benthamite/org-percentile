@@ -35,13 +35,17 @@
 For example, 21600 means 06:00 am acts as ‘midnight’ for percentile feedback."
   :type 'integer)
 
-;;;; Internal data structures
+;;;; Variables
+
+;;;;; Internal data structures
 
 ;; Hash table: date‑string “YYYY‑MM‑DD” ⇒ list of (START END)
 (defvar org-percentile--history (make-hash-table :test #'equal))
 (defvar org-percentile--mode-line-string "")
 
-;;;; Utility helpers
+;;;; Functions
+
+;;;;; Utility helpers
 
 (defun org-percentile--date-string (&optional time)
   "Return date string in YYYY-MM-DD format.
@@ -72,7 +76,7 @@ If TIME is nil, use the current time."
   (with-temp-file org-percentile-data-file
     (prin1 org-percentile--history (current-buffer))))
 
-;;;; Logging helpers
+;;;;; Logging helpers
 
 (defun org-percentile--ensure-day (date)
   "Ensure that DATE exists in `org-percentile--history'."
@@ -109,7 +113,7 @@ The period is given as float seconds since shifted midnight."
       ;; 3. Log from start of last day to end time
       (org-percentile--log-period 0.0 end-sec-day end-date))))
 
-;;;; Org import
+;;;;; Org import
 
 (defun org-percentile-import-org-clock-entry (beg end)
   "Parse Org CLOCK entry from BEG to END and add it to the history."
@@ -139,7 +143,7 @@ If FILES is nil, use `org-percentile-org-files'."
           (org-percentile-import-org-clock-entry (line-beginning-position) (line-end-position))))))
   (message "Org Percentile: Org import done."))
 
-;;;; Percentile computation
+;;;;; Percentile computation
 
 (defun org-percentile--cumulative-today (&optional now)
   "Cumulative seconds for today (shifted‑midnight reference).
@@ -185,6 +189,8 @@ If NOW is provided, use it as the current time. Otherwise, use `current-time'."
         (let* ((p (org-percentile-current-percentile)))
           (if p (format " PF:%2.0f%%" p) " PF:--")))
   (force-mode-line-update))
+
+;;;;;; Hooks
 
 (defun org-percentile-clock-in-hook ()
   "Update mode-line when clocking in."
