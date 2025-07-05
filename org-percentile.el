@@ -81,7 +81,7 @@ If TIME is nil, use the current time."
 
 (defun org-percentile--log-period (start end date)
   "Add a period [START, END) to DATE.
-The period is given as float seconds since shifted midnight".
+The period is given as float seconds since shifted midnight."
   (when (< end start) (cl-rotatef start end))
   (let ((lst (org-percentile--ensure-day date)))
     (puthash date (cons (cons start end) lst) org-percentile--history)))
