@@ -1,6 +1,6 @@
 ;;; percentile-feedback.el --- Live percentile‑feedback in Emacs  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2025  Your Name
+;; Copyright (C) 2025  Pablo Stafforini
 ;; SPDX-License-Identifier: MIT
 ;; Version: 0.1
 ;; Package-Requires: ((emacs "27.1") (org "9.0"))
@@ -8,7 +8,7 @@
 ;;; Commentary:
 
 ;; Implements Seth Roberts’ “percentile feedback” productivity metric.
-;; Load the file, then enable `percentile-feedback-mode`.
+;; Load the file, then enable `percentile-feedback-mode'.
 
 ;;; Code:
 
@@ -36,7 +36,7 @@ For example, 21600 means 06:00 am acts as ‘midnight’ for percentile feedback
   :type 'integer)
 
 (defcustom pf-auto-save-interval 300
-  "Seconds between automatic writes of `pf--history` to `pf-data-file`."
+  "Seconds between automatic writes of `pf--history' to `pf-data-file'."
   :type 'integer)
 
 ;;;; Internal data structures
@@ -66,7 +66,7 @@ If TIME is nil, use the current time."
     (mod s 86400)))
 
 (defun pf--maybe-load-history ()
-  "Load `pf--history` from `pf-data-file` if it exists and is empty."
+  "Load `pf--history' from `pf-data-file' if it exists and is empty."
   (when (and (file-exists-p pf-data-file)
              (eq 0 (hash-table-count pf--history)))
     (with-temp-buffer
@@ -74,7 +74,7 @@ If TIME is nil, use the current time."
       (setq pf--history (read (current-buffer))))))
 
 (defun pf--save-history ()
-  "Persist `pf--history` to `pf-data-file`."
+  "Persist `pf--history' to `pf-data-file'."
   (with-temp-file pf-data-file
     (prin1 pf--history (current-buffer))))
 
@@ -123,7 +123,7 @@ If TIME is nil, use the current time."
 
 ;;;###autoload
 (defun pf-import-org-files (&optional files)
-  "Parse CLOCK lines from FILES (default `pf-org-files`) into the history."
+  "Parse CLOCK lines from FILES (default `pf-org-files') into the history."
   (interactive)
   (dolist (f (or files pf-org-files))
     (when (file-exists-p f)
@@ -146,7 +146,7 @@ If NOW is provided, use it as the current time. Otherwise, use `current-time'."
     (dolist (pr lst sum)
       (cl-incf sum (max 0 (- (min now-s (cdr pr)) (car pr)))))))
 
-(defun pf--cumul-until (date time-sec)
+(defun pf--cumulative-until (date time-sec)
   "Cumulative seconds for DATE up to TIME-SEC (shifted‑midnight reference)."
   (let ((lst (gethash date pf--history))
         (sum 0))
@@ -164,7 +164,7 @@ If NOW is provided, use it as the current time. Otherwise, use `current-time'."
     (maphash
      (lambda (k _v)
        (unless (equal k today)
-         (push (pf--cumul-until k now-sec) scores)))
+         (push (pf--cumulative-until k now-sec) scores)))
      pf--history)
     (if (null scores)
         100.0
