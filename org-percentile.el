@@ -60,7 +60,7 @@ If TIME is nil, use the current time."
     (mod s 86400)))
 
 (defun org-percentile--maybe-load-history ()
-  "Load `org-percentile--history' from `org-percentile-data-file' if it exists and is empty."
+  "Load history from `org-percentile-data-file' if it exists and is empty."
   (when (and (file-exists-p org-percentile-data-file)
              (eq 0 (hash-table-count org-percentile--history)))
     (with-temp-buffer
@@ -80,7 +80,8 @@ If TIME is nil, use the current time."
       (puthash date nil org-percentile--history)))
 
 (defun org-percentile--log-period (start end date)
-  "Add a period [START, END) to DATE, given as float seconds since shifted midnight."
+  "Add a period [START, END) to DATE.
+The period is given as float seconds since shifted midnight".
   (when (< end start) (cl-rotatef start end))
   (let ((lst (org-percentile--ensure-day date)))
     (puthash date (cons (cons start end) lst) org-percentile--history)))
@@ -126,7 +127,8 @@ If TIME is nil, use the current time."
 
 ;;;###autoload
 (defun org-percentile-import-org-files (&optional files)
-  "Parse CLOCK lines from FILES (default `org-percentile-org-files') into the history."
+  "Parse CLOCK lines from FILES into the history.
+If FILES is nil, use `org-percentile-org-files'."
   (interactive)
   (dolist (f (or files org-percentile-org-files))
     (when (file-exists-p f)
