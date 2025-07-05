@@ -181,7 +181,34 @@ If NOW is provided, use it as the current time. Otherwise, use `current-time'."
              (percent (* 100.0 (/ beats (float (length scores))))))
         percent))))
 
-;;;; Mode‑line & hooks
+;;;;; Modeline & hooks
+
+;;;;;; `org-percentile-mode'
+
+;;;###autoload
+(define-minor-mode org-percentile-mode
+  "Global minor mode that shows live percentile feedback from Org clocks."
+  :global t
+  (if org-percentile-mode
+      (org-percentile-mode-enable)
+    (org-percentile-mode-disable)))
+
+(defun org-percentile-mode-enable ()
+  "Enable `org-percentile-mode'."
+  (org-percentile--maybe-load-history)
+  (add-hook 'org-clock-in-hook #'org-percentile-clock-in-hook)
+  (add-hook 'org-clock-out-hook #'org-percentile-clock-out-hook)
+  (add-to-list 'global-mode-string '(:eval org-percentile--mode-line-string) t)
+  (org-percentile--update-mode-line))
+
+(defun org-percentile-mode-disable ()
+  "Disable `org-percentile-moe'."
+  (remove-hook 'org-clock-in-hook #'org-percentile-clock-in-hook)
+  (remove-hook 'org-clock-out-hook #'org-percentile-clock-out-hook)
+  (setq global-mode-string
+        (remove '(:eval org-percentile--mode-line-string) global-mode-string)))
+
+;;;;;; Modeline
 
 (defun org-percentile--update-mode-line ()
   "Update the mode-line string with the current percentile."
@@ -213,23 +240,6 @@ If NOW is provided, use it as the current time. Otherwise, use `current-time'."
   (org-percentile--save-history)
   (org-percentile--update-mode-line)
   (message "PF:%2.0f%%" (org-percentile-current-percentile)))
-
-;;;###autoload
-(define-minor-mode org-percentile-mode
-  "Global minor mode that shows live percentile feedback from Org clocks."
-  :global t
-  (if org-percentile-mode
-      (progn
-        (org-percentile--maybe-load-history)
-        (add-hook 'org-clock-in-hook #'org-percentile-clock-in-hook)
-        (add-hook 'org-clock-out-hook #'org-percentile-clock-out-hook)
-        (add-to-list 'global-mode-string '(:eval org-percentile--mode-line-string) t)
-        (org-percentile--update-mode-line))
-    ;; disable
-    (remove-hook 'org-clock-in-hook #'org-percentile-clock-in-hook)
-    (remove-hook 'org-clock-out-hook #'org-percentile-clock-out-hook)
-    (setq global-mode-string
-          (remove '(:eval org-percentile--mode-line-string) global-mode-string))))
 
 (provide 'org-percentile)
 ;;; org-percentile.el ends here
