@@ -65,8 +65,7 @@ If you use =use-package=, add this your =init.el= file:
   :quelpa (org-percentile :fetcher github :repo "benthamite/org-percentile"))
         #+end_src
 
-
-*** Sample configuration
+** Sample configuration
 :PROPERTIES:
 :CUSTOM_ID: h:5d16932d-4f7b-493d-8e6a-e5c396b15fd6
 :ID:       AC9FDD00-8F52-48C6-AD16-BA754EBED8BF
@@ -87,7 +86,7 @@ A minimal setup to get started:
 (org-percentile-import-org-files)
 #+end_src
 
-*** How it works
+** How it works
 :PROPERTIES:
 :CUSTOM_ID: h:17896c8c-d97a-4faa-abf6-31df99746ca6
 :ID:       E3E49E55-A1B8-4D2D-889D-7EAE6E94513C
@@ -109,13 +108,13 @@ will check what percentage of past days you had worked 4 hours or less by 2 PM.
 If on 80% of the days you had worked 4 hours or less, your current
 percentile is 80%.
 
-*** Commands
+** Commands
 :PROPERTIES:
 :CUSTOM_ID: h:6a92a8b5-d766-42cc-8e5b-8dc255466a23
 :ID:       E4D5F444-C2CC-4800-A0DD-2CB7EE7FBEBB
 :END:
 
-**** =org-percentile-mode=
+*** =org-percentile-mode=
 :PROPERTIES:
 :ID:       C6BD047A-1486-45AA-862A-ECE62C32E83C
 :END:
@@ -123,7 +122,7 @@ A global minor mode that activates and deactivates the percentile
 feedback functionality. When enabled, it adds hooks to =org-clock= and
 displays the percentile in the mode-line.
 
-**** =org-percentile-import-org-files=
+*** =org-percentile-import-org-files=
 :PROPERTIES:
 :ID:       C9283E78-EAE8-4445-8FDA-E9D4C60CE688
 :END:
@@ -131,27 +130,27 @@ This command parses all =CLOCK= entries from the files listed in
 =org-percentile-org-files= and adds them to the history data. This is
 useful for bootstrapping the system with your existing Org clock data.
 
-*** Customization
+** Customization
 :PROPERTIES:
 :CUSTOM_ID: h:f9204f1f-fcee-49b1-8081-16a08a338099
 :ID:       17615C1C-4D0C-4A8B-99D0-DCDDD0CE9015
 :END:
 
-**** =org-percentile-data-file=
+*** =org-percentile-data-file=
 :PROPERTIES:
 :ID:       DF960394-02AE-4EFF-9270-39892A65FA18
 :END:
 The file where percentile feedback history is stored. Defaults to
 =~/.emacs.d/org-percentile-data.el=.
 
-**** =org-percentile-org-files=
+*** =org-percentile-org-files=
 :PROPERTIES:
 :ID:       8307CD55-65A9-4C0A-86F6-3EA87ED41D79
 :END:
 An optional list of Org files whose =CLOCK= entries can be imported
 using =org-percentile-import-org-files=.
 
-**** =org-percentile-midnight-shift=
+*** =org-percentile-midnight-shift=
 :PROPERTIES:
 :ID:       A051E1E9-15FF-4350-80BA-B8028643F450
 :END:
@@ -160,7 +159,7 @@ purpose of calculating daily work periods. It defaults to the value of
 =org-extend-today-until=. For example, a value of 21600 means your
 "day" starts at 6 AM.
 
-*** Contributing
+** Contributing
 :PROPERTIES:
 :CUSTOM_ID: h:1ebe4865-c001-4747-a6f2-0fe45aad71cd
 :ID:       8181416C-4A32-4F68-8206-531D84A2ABE8
@@ -169,7 +168,7 @@ purpose of calculating daily work periods. It defaults to the value of
 Contributions are welcome. Please open an issue or pull request on the
 project's repository.
 
-*** License
+** License
 :PROPERTIES:
 :CUSTOM_ID: h:40b18bb2-4dc1-4202-bd0b-6fab535b2a0f
 :ID:       E60A8D6C-56F0-477B-8802-7F14B01C6C36
